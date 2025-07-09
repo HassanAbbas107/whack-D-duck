@@ -1,22 +1,39 @@
 function init(){
     const gridElm = document.querySelector('.grid')
     const cells=[]
-    const girdWidth=10
-    const numOfCells=10*girdWidth
-function createGrid() {
+    const gridWidth=10
+    const numOfCells=gridWidth*gridWidth
+    let duckPosition=0;
     
-    for (let i = 0; i < 100; i++) {
-        const cell =document.createElement('div')
-        cell.textContent=i
-        cell.classList.add('duck')
-        cells.push(cell)
-        gridElm.appendChild(cell)
+    function addDuck() {
+        cells[duckPosition].classList.add("Duck")
     }
-    console.log(cells)
+    
+    function removeDuck(){
+        cells[duckPosition].classList.remove("Duck")
+    }
+    
+    function play(){
+        setInterval(() => {
+            removeDuck()
+            duckPosition = Math.floor(Math.random() * cells.length)
+            addDuck()
+        }, 3000)
+    }
+    
+    function createGrid(){
+        for (let i = 0; i < numOfCells; i++) {
+            const cell = document.createElement('div')
+            cell.textContent = i
+            cells.push(cell)
+            gridElm.appendChild(cell)
+        }
+        console.log(cells)
+    }
+    
+    createGrid()
+    addDuck()
+    play()
 }
 
-createGrid()
-
-
-}
-document.addEventListener("DOMContentLoaded",init)
+document.addEventListener("DOMContentLoaded", init)
