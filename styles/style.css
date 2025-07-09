@@ -12,3 +12,8 @@
     margin: auto;
    
 }
+.duck{
+    background-image: url('../duck.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
