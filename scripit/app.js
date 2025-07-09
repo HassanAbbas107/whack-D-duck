@@ -6,10 +6,12 @@ function init() {
     const numOfCells = gridWidth * gridWidth;
     let duckPosition = 0; 
     let score=0
-    
+    let count
+    audio=document.querySelector(".audio")
     function addDuck() {
         if (cells[duckPosition]) { 
             cells[duckPosition].classList.add("duck"); 
+            count++
         }
     }
     
@@ -18,12 +20,18 @@ function init() {
             cells[duckPosition].classList.remove("duck");
         }
     }
-    
+    function endgame(){
+        alert('game ended'+score)
+        score=0
+        count=0
+    }
     function play() {
         setInterval(() => {
+            if(count<10){
             removeDuck();
             duckPosition = Math.floor(Math.random() * numOfCells); 
-          addDuck();
+          addDuck();}else{ endgame() 
+            }
         }, 2000); 
     }
     
@@ -40,17 +48,22 @@ function init() {
             gridElm.appendChild(cell);
         }
     }
+    
     function handelClick(){
         if(event.target.classList.contains('duck')){
-            score=+100
+            audio.pause()
+            audio.currentTime=0
+            score+=100
             score_disp.textContent=`Your Score is ${score}`
-            
+            audio.play()
+            removeDuck()
         }
     }
     createGrid();
     duckPosition = Math.floor(Math.random() * numOfCells); 
     addDuck();
     play();
+
 }
 
 document.addEventListener("DOMContentLoaded", init);
